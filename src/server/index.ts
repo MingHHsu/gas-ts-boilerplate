@@ -46,9 +46,9 @@ function openSidebar() {
 // ── 全域 function 登記 ────────────────────────────────────────────────────────
 
 // HTML include helper（供 scriptlet <?!= include() ?> 使用）
-(global as any).include = (filename: string): string =>
+(globalThis as any).include = (filename: string): string =>
   HtmlService.createHtmlOutputFromFile(filename).getContent();
 
 // 給前端 google.script.run 呼叫的 function
-(global as any).getSheetOptions = getFormOptions;
-(global as any).submitForm = submitFormData;
+(globalThis as any).getSheetOptions = getFormOptions;
+(globalThis as any).submitForm = submitFormData;
