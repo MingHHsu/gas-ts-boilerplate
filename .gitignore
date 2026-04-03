@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# clasp credentials
+.clasprc.json
+.clasp.json
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Test coverage
+coverage/

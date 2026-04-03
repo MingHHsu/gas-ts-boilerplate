@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2019"],
+    "types": ["vitest/globals", "@types/google-apps-script"]
+  },
+  "include": ["src/**/*.ts"]
+}

@@ -1,0 +1,98 @@
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+
+<script>
+  // ── google.script.run mock（本地開發用，部署後會被真實 API 取代）──────────
+  if (typeof google === 'undefined') {
+    window.google = {
+      script: {
+        run: new Proxy({}, {
+          get: (_, fnName) => ({
+            withSuccessHandler(cb) {
+              return {
+                withFailureHandler(_) {
+                  return {
+                    [fnName](...args) {
+                      const mocks = {
+                        getSheetOptions: () => ({ success: true, data: [
+                          { id: 'A', label: '類別 A' },
+                          { id: 'B', label: '類別 B（需備註）' },
+                          { id: 'C', label: '類別 C' },
+                        ]}),
+                        submitForm: () => ({ success: true, message: '送出成功！' }),
+                      }
+                      setTimeout(() => cb(mocks[fnName]?.(...args)), 500)
+                    }
+                  }
+                }
+              }
+            }
+          })
+        })
+      }
+    }
+  }
+
+  // ── 封裝 google.script.run 為 Promise ────────────────────────────────────
+  function runGas(fnName, ...args) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
+        [fnName](...args)
+    })
+  }
+
+  // ── Alpine.js 主元件 ──────────────────────────────────────────────────────
+  function formWizard() {
+    return {
+      step: 1,
+      form: { name: '', category: '', note: '' },
+      options: [],
+      loadingOptions: false,
+      optionsError: null,
+      loading: false,
+      result: null,
+
+      init() {
+        this.$watch('step', (val) => {
+          if (val === 2 && this.options.length === 0) {
+            this.loadOptions()
+          }
+        })
+      },
+
+      async loadOptions() {
+        this.loadingOptions = true
+        this.optionsError = null
+        try {
+          const res = await runGas('getSheetOptions')
+          if (!res.success) throw new Error(res.message)
+          this.options = res.data
+        } catch (err) {
+          this.optionsError = `載入失敗：${err.message}`
+        } finally {
+          this.loadingOptions = false
+        }
+      },
+
+      async submit() {
+        this.loading = true
+        try {
+          this.result = await runGas('submitForm', this.form)
+        } catch (err) {
+          this.result = { success: false, message: err.message }
+        } finally {
+          this.loading = false
+          this.step = 4
+        }
+      },
+
+      reset() {
+        this.step = 1
+        this.form = { name: '', category: '', note: '' }
+        this.result = null
+        this.options = []
+      },
+    }
+  }
+</script>

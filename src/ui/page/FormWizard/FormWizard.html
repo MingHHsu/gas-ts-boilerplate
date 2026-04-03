@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?!= include('page/FormWizard/FormWizard.css'); ?>
+</head>
+<body>
+
+  <div x-data="formWizard()" class="wizard-container">
+
+    <!-- Step 指示器 -->
+    <template x-if="step < 4">
+      <div class="step-indicator">
+        <template x-for="(label, i) in ['基本資料', '分類設定', '確認送出']" :key="i">
+          <div
+            class="step-item"
+            :class="step === i + 1
+              ? 'step-item--active'
+              : step > i + 1
+                ? 'step-item--done'
+                : ''">
+            <span x-text="`${i + 1}. ${label}`"></span>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- Step 1：基本資料 -->
+    <template x-if="step === 1">
+      <div class="step-content">
+        <h2 class="step-title">基本資料</h2>
+
+        <div>
+          <label class="form-label">名稱 <span class="required-mark">*</span></label>
+          <input
+            x-model="form.name"
+            type="text"
+            placeholder="請輸入名稱"
+            class="form-input"
+          >
+        </div>
+
+        <button
+          @click="step = 2"
+          :disabled="!form.name.trim()"
+          class="btn btn--primary">
+          下一步
+        </button>
+      </div>
+    </template>
+
+    <!-- Step 2：分類設定 -->
+    <template x-if="step === 2">
+      <div class="step-content">
+        <h2 class="step-title">分類設定</h2>
+
+        <template x-if="loadingOptions">
+          <p class="text-loading">載入選項中...</p>
+        </template>
+
+        <template x-if="!loadingOptions && optionsError">
+          <p class="text-error" x-text="optionsError"></p>
+        </template>
+
+        <template x-if="!loadingOptions && !optionsError">
+          <div class="step-content">
+            <div>
+              <label class="form-label">類別 <span class="required-mark">*</span></label>
+              <select
+                x-model="form.category"
+                class="form-input">
+                <option value="" disabled>請選擇...</option>
+                <template x-for="opt in options" :key="opt.id">
+                  <option :value="opt.id" x-text="opt.label"></option>
+                </template>
+              </select>
+            </div>
+
+            <template x-if="form.category === 'B'">
+              <div>
+                <label class="form-label">備註（類別 B 必填）</label>
+                <textarea
+                  x-model="form.note"
+                  rows="3"
+                  placeholder="請輸入備註"
+                  class="form-input">
+                </textarea>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <div class="btn-row">
+          <button
+            @click="step = 1"
+            class="btn btn--secondary">
+            上一步
+          </button>
+          <button
+            @click="step = 3"
+            :disabled="!form.category || (form.category === 'B' && !form.note.trim())"
+            class="btn btn--outline-next">
+            下一步
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <!-- Step 3：確認送出 -->
+    <template x-if="step === 3">
+      <div class="step-content">
+        <h2 class="step-title">確認送出</h2>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-label">名稱</span>
+            <span x-text="form.name" class="summary-value"></span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">類別</span>
+            <span x-text="form.category" class="summary-value"></span>
+          </div>
+          <template x-if="form.note">
+            <div class="summary-row">
+              <span class="summary-label">備註</span>
+              <span x-text="form.note" class="summary-value"></span>
+            </div>
+          </template>
+        </div>
+
+        <div class="btn-row">
+          <button
+            @click="step = 2"
+            :disabled="loading"
+            class="btn btn--secondary">
+            上一步
+          </button>
+          <button
+            @click="submit()"
+            :disabled="loading"
+            class="btn btn--success">
+            <span x-show="!loading">送出</span>
+            <span x-show="loading">送出中...</span>
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <!-- Step 4：結果畫面 -->
+    <template x-if="step === 4">
+      <div class="result-screen">
+        <template x-if="result?.success">
+          <div>
+            <p class="result-emoji">✅</p>
+            <p class="result-success-text" x-text="result.message"></p>
+          </div>
+        </template>
+        <template x-if="!result?.success">
+          <div>
+            <p class="result-emoji">❌</p>
+            <p class="result-error-text" x-text="result?.message"></p>
+            <button
+              @click="reset()"
+              class="btn btn--reset">
+              重新填寫
+            </button>
+          </div>
+        </template>
+      </div>
+    </template>
+
+  </div><!-- /x-data -->
+
+  <?!= include('page/FormWizard/FormWizard.js'); ?>
+</body>
+</html>

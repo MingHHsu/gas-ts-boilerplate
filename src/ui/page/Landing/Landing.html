@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的工具 — Google Apps Script</title>
+  <?!= include('page/Landing/Landing.css'); ?>
+</head>
+<body>
+
+  <!-- ══ Nav ══════════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="6" height="6" rx="1.5" fill="white"/>
+          <rect x="10" y="2" width="6" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+          <rect x="2" y="10" width="6" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+          <rect x="10" y="10" width="6" height="6" rx="1.5" fill="rgba(255,255,255,0.3)"/>
+        </svg>
+      </div>
+      <span class="nav-brand-name">MyGASTool</span>
+    </a>
+    <span class="nav-badge">Google Apps Script</span>
+  </nav>
+
+  <!-- ══ Hero ══════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        打造自動化工作流程
+      </p>
+      <h1 class="hero-title">
+        讓試算表<br>
+        <em>智慧運轉</em>
+      </h1>
+      <p class="hero-desc">
+        基於 Google Apps Script 開發的整合工具，自動化重複性任務，讓你專注在真正重要的事。
+      </p>
+      <div class="hero-cta-row">
+        <a href="#features" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M3 8l5 5 5-5" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          探索功能
+        </a>
+        <a href="#" class="btn-ghost">
+          查看文件
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card-bg"></div>
+        <div class="hero-card-bg"></div>
+        <div class="hero-card-main">
+          <div class="hero-card-header">
+            <div class="hero-card-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="2" y="2" width="14" height="14" rx="3" stroke="#3B82F6" stroke-width="1.5"/>
+                <path d="M5.5 9h7M5.5 6h7M5.5 12h4" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="hero-card-title">每日資料彙整</div>
+              <div class="hero-card-subtitle">自動執行 · 每天 08:00</div>
+            </div>
+          </div>
+          <div class="hero-card-rows">
+            <div class="hero-card-row">
+              <div class="hero-card-row-dot"></div>
+              <span class="hero-card-row-label">銷售報表同步</span>
+              <span class="hero-card-row-tag tag-green">已完成</span>
+            </div>
+            <div class="hero-card-row">
+              <div class="hero-card-row-dot"></div>
+              <span class="hero-card-row-label">庫存資料更新</span>
+              <span class="hero-card-row-tag tag-green">已完成</span>
+            </div>
+            <div class="hero-card-row">
+              <div class="hero-card-row-dot"></div>
+              <span class="hero-card-row-label">Email 通知發送</span>
+              <span class="hero-card-row-tag tag-blue">執行中</span>
+            </div>
+            <div class="hero-card-row">
+              <div class="hero-card-row-dot"></div>
+              <span class="hero-card-row-label">週報表產生</span>
+              <span class="hero-card-row-tag tag-amber">排程中</span>
+            </div>
+          </div>
+          <div class="hero-card-footer">
+            <div class="hero-card-stat">
+              <div class="hero-card-stat-num">98%</div>
+              <div class="hero-card-stat-label">成功率</div>
+            </div>
+            <div class="hero-card-stat">
+              <div class="hero-card-stat-num">1.2s</div>
+              <div class="hero-card-stat-label">平均執行</div>
+            </div>
+            <div class="hero-card-stat">
+              <div class="hero-card-stat-num">2,840</div>
+              <div class="hero-card-stat-label">本月次數</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Stats Bar ══════════════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="reveal">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">核心功能模組</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="stat-num">0</div>
+        <div class="stat-label">額外授權費用</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stat-num">99%</div>
+        <div class="stat-label">Google 生態整合</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">自動化執行</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Features ══════════════════════════════════════════════════ -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-label">
+        <span class="section-label-line"></span>
+        功能列表
+        <span class="section-label-line"></span>
+      </div>
+      <h2 class="section-title">
+        一套工具，<em>全面整合</em>
+      </h2>
+      <p class="section-desc">
+        從資料自動化到表單處理，涵蓋日常工作中最需要的 Google Workspace 整合功能。
+      </p>
+    </div>
+
+    <div class="feature-grid">
+
+      <!-- 精選功能 -->
+      <div class="feature-card feature-card--featured reveal">
+        <div class="feature-icon-wrap feature-icon-wrap--blue">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="2" y="2" width="18" height="18" rx="4" stroke="#3B82F6" stroke-width="1.75"/>
+            <path d="M6 11h10M6 7.5h10M6 14.5h6" stroke="#3B82F6" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Sheets 自動化引擎</div>
+          <p class="feature-desc">
+            以觸發器（Trigger）驅動的資料處理流程，支援定時執行、試算表異動觸發、表單送出回應等多種模式。自動彙整、格式化、驗證並寫入資料，完全無需人工干預。
+          </p>
+          <span class="feature-tag feature-tag--core">核心功能</span>
+        </div>
+      </div>
+
+      <!-- 功能 2 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon-wrap feature-icon-wrap--green">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 3L4 7v4c0 4.1 2.9 7.9 7 9 4.1-1.1 7-4.9 7-9V7l-7-4z" stroke="#16A34A" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M8 11l2 2 4-4" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">資料驗證與清洗</div>
+          <p class="feature-desc">
+            自動偵測格式錯誤、重複記錄與缺漏欄位，標記問題並產生驗證報告。
+          </p>
+        </div>
+      </div>
+
+      <!-- 功能 3 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon-wrap feature-icon-wrap--amber">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M4 4h14a1 1 0 0 1 1 1v2H3V5a1 1 0 0 1 1-1z" stroke="#D97706" stroke-width="1.75" stroke-linejoin="round"/>
+            <rect x="3" y="7" width="16" height="11" rx="1" stroke="#D97706" stroke-width="1.75"/>
+            <path d="M7 12h8M7 15h5" stroke="#D97706" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">表單資料整合</div>
+          <p class="feature-desc">
+            Google Forms 送出後即時處理，自動分類寫入指定工作表並觸發後續流程。
+          </p>
+          <span class="feature-tag feature-tag--new">最新功能</span>
+        </div>
+      </div>
+
+      <!-- 功能 4 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon-wrap feature-icon-wrap--indigo">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="3" y="5" width="16" height="12" rx="2.5" stroke="#4F46E5" stroke-width="1.75"/>
+            <path d="M3 9h16" stroke="#4F46E5" stroke-width="1.75"/>
+            <circle cx="7" cy="13.5" r="1" fill="#4F46E5"/>
+            <circle cx="11" cy="13.5" r="1" fill="#4F46E5"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Email 自動發送</div>
+          <p class="feature-desc">
+            根據試算表資料批次發送個人化 Email，支援 HTML 模板與附件嵌入。
+          </p>
+        </div>
+      </div>
+
+      <!-- 功能 5 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon-wrap feature-icon-wrap--rose">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="#E11D48" stroke-width="1.75"/>
+            <path d="M11 7v4.5l3 1.5" stroke="#E11D48" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">排程觸發管理</div>
+          <p class="feature-desc">
+            視覺化設定定時觸發器，從每分鐘到每月執行皆可設定，並記錄執行紀錄。
+          </p>
+        </div>
+      </div>
+
+      <!-- 功能 6 -->
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon-wrap feature-icon-wrap--purple">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M19 3H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" stroke="#9333EA" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M7 8l4 3 4-3" stroke="#9333EA" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Drive 檔案管理</div>
+          <p class="feature-desc">
+            自動建立資料夾結構、移動檔案、設定共享權限，並依規則命名與歸檔文件。
+          </p>
+        </div>
+      </div>
+
+      <!-- 功能 7（精選 full-width） -->
+      <div class="feature-card feature-card--featured reveal">
+        <div class="feature-icon-wrap feature-icon-wrap--indigo">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M3 3h7v7H3zM12 3h7v7h-7zM3 12h7v7H3z" stroke="#4F46E5" stroke-width="1.75" stroke-linejoin="round"/>
+            <circle cx="15.5" cy="15.5" r="3.5" stroke="#4F46E5" stroke-width="1.75"/>
+            <path d="M18 18l1.5 1.5" stroke="#4F46E5" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">跨表資料查詢整合</div>
+          <p class="feature-desc">
+            透過 VLOOKUP 邏輯封裝，以 GAS 跨試算表查詢、合併與計算資料，產出統一的分析結果工作表，並支援多個資料來源動態組合。
+          </p>
+          <span class="feature-tag feature-tag--core">核心功能</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CTA ══════════════════════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="cta-card reveal">
+      <h2 class="cta-title">
+        準備好開始了嗎？<br>
+        <em>讓工作流程自動運轉</em>
+      </h2>
+      <p class="cta-desc">
+        只需複製試算表範本，即可立即使用所有功能，無需任何程式基礎。
+      </p>
+      <div class="cta-btn-row">
+        <a href="#" class="btn-cta-white">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2z" stroke="#1D4ED8" stroke-width="1.5"/>
+            <path d="M6 8l2-2 2 2M8 6v4" stroke="#1D4ED8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          立即開始使用
+        </a>
+        <a href="#" class="btn-cta-outline">
+          查看使用說明
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Footer ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <span class="footer-brand">MyGASTool</span>
+        <span class="footer-note"> · 以 Google Apps Script 建置</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">說明文件</a>
+        <a href="#" class="footer-link">使用條款</a>
+        <a href="#" class="footer-link">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+  <?!= include('page/Landing/Landing.js'); ?>
+</body>
+</html>
