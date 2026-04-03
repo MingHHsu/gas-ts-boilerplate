@@ -21,7 +21,7 @@ pnpm run build || { echo "Error: build 失敗，中止部署。"; exit 1; }
 
 # ── 4. clasp push ──────────────────────────────────────────────────────────
 echo "▶ Pushing to GAS..."
-clasp push || { echo "Error: clasp push 失敗，中止部署。"; exit 1; }
+clasp push --force || { echo "Error: clasp push 失敗，中止部署。"; exit 1; }
 
 # ── 5. git push ────────────────────────────────────────────────────────────
 echo "▶ git push..."
