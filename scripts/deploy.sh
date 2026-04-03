@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# ── 0. 確認環境參數 ────────────────────────────────────────────────────────
+ENV="${1:-}"
+if [[ "$ENV" != "dev" && "$ENV" != "prod" ]]; then
+  echo "Error: 請指定部署環境，用法：bash scripts/deploy.sh <dev|prod>"
+  exit 1
+fi
+
+echo "▶ 部署環境：$ENV"
+
 # ── 1. lint:fix（若有更動則 commit）────────────────────────────────────────
 echo "▶ 執行 lint:fix..."
 pnpm run lint:fix || { echo "Error: lint:fix 失敗，中止部署。"; exit 1; }
@@ -37,15 +46,29 @@ else
   NEXT_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
 fi
 
-echo "▶ 建立 tag: $NEXT_TAG"
+DESCRIPTION="${ENV}-${NEXT_TAG}"
+echo "▶ 建立 tag: $NEXT_TAG，deployment description: $DESCRIPTION"
 git tag "$NEXT_TAG" || { echo "Error: git tag 失敗，中止部署。"; exit 1; }
 
 # ── 7. git push tag ────────────────────────────────────────────────────────
 echo "▶ git push tag..."
 git push origin "$NEXT_TAG" || { echo "Error: git push tag 失敗，中止部署。"; exit 1; }
 
-# ── 8. clasp deploy ────────────────────────────────────────────────────────
-echo "▶ 建立 clasp deployment..."
-clasp deploy --description "$NEXT_TAG" || { echo "Error: clasp deploy 失敗，中止部署。"; exit 1; }
+# ── 8. clasp deploy（依 description 前綴找 deploymentId）─────────────────
+echo "▶ 查詢既有 deployments..."
+DEPLOYMENTS_OUTPUT=$(clasp deployments) || { echo "Error: clasp deployments 失敗，中止部署。"; exit 1; }
 
-echo "✔ 部署完成，tag: $NEXT_TAG"
+# 找 description 開頭為 $ENV 的那筆（格式：- <id> @<ver> - <description>）
+DEPLOYMENT_ID=$(echo "$DEPLOYMENTS_OUTPUT" | grep -E " - ${ENV}(-|$)" | grep -oE 'AKfycb[A-Za-z0-9_-]+' | head -1 || true)
+
+if [ -n "$DEPLOYMENT_ID" ]; then
+  echo "▶ 找到既有 $ENV deployment ($DEPLOYMENT_ID)，更新中..."
+  clasp deploy --deploymentId "$DEPLOYMENT_ID" --description "$DESCRIPTION" \
+    || { echo "Error: clasp deploy 失敗，中止部署。"; exit 1; }
+else
+  echo "▶ 未找到 $ENV deployment，建立新 deployment..."
+  clasp deploy --description "$DESCRIPTION" \
+    || { echo "Error: clasp deploy 失敗，中止部署。"; exit 1; }
+fi
+
+echo "✔ 部署完成：$DESCRIPTION"
