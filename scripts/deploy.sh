@@ -37,7 +37,7 @@ echo "▶ git push..."
 git push || { echo "Error: git push 失敗，中止部署。"; exit 1; }
 
 # ── 6. 自動決定下一個 semver tag ──────────────────────────────────────────
-LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1 || true)
+LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1 | tr -d '\r' || true)
 
 if [ -z "$LATEST_TAG" ]; then
   NEXT_TAG="v1.0.0"
