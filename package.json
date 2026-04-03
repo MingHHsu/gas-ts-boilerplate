@@ -6,8 +6,8 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js --watch",
-    "push": "pnpm run build && clasp push",
-    "deploy": "pnpm run build && clasp push && clasp deploy",
+    "push": "pnpm run test && pnpm run build && clasp push",
+    "deploy": "bash scripts/deploy.sh",
     "open": "clasp open",
     "login": "clasp login",
     "lint": "eslint 'src/server/**/*.ts'",
